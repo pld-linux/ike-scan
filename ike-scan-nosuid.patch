@@ -1,14 +1,7 @@
---- ike-scan-1.2/ike-scan.c.orig	Sat Jul 19 00:04:28 2003
-+++ ike-scan-1.2/ike-scan.c	Sat Jul 19 00:03:53 2003
-@@ -48,7 +48,6 @@
- 
- #define MAX_PAYLOAD 13	/* Maximum defined payload number */
- static char rcsid[] = "$Id$";   /* RCS ID for ident(1) */
--
- /* Global variables */
- struct host_entry *rrlist = NULL;	/* Round-robin linked list "the list" */
- struct host_entry *cursor;		/* Pointer to current list entry */
-@@ -214,6 +213,7 @@
+diff -urN ike-scan-1.6.orig/ike-scan.c ike-scan-1.6.new/ike-scan.c
+--- ike-scan-1.6.orig/ike-scan.c	2004-01-13 19:42:15.000000000 +0100
++++ ike-scan-1.6.new/ike-scan.c	2004-05-19 12:13:24.874798304 +0200
+@@ -162,6 +162,7 @@
   *	We must be careful here to avoid overflowing the arg_str buffer
   *	which could result in a buffer overflow vulnerability.
   */
@@ -16,18 +9,18 @@
  #ifdef SYSLOG
     openlog("ike-scan", LOG_PID, SYSLOG_FACILITY);
     arg_str[0] = '\0';
-@@ -437,7 +437,7 @@
- 
+@@ -396,7 +397,7 @@
     if ((bind(sockfd, (struct sockaddr *)&sa_local, sizeof(sa_local))) < 0) {
-       warn_msg("ERROR: Could not bind UDP socket to local port %d", source_port);
--      warn_msg("You need to be root, or ike-scan must be suid root to bind to ports below 1024.");
-+      warn_msg("You need to be root to bind to ports below 1024.");
-       warn_msg("Only one process may bind to a given port at any one time.");
+       warn_msg("ERROR: Could not bind UDP socket to local port %u", source_port);
+       if (errno == EACCES)
+-         warn_msg("You need to be root, or ike-scan must be suid root to bind to ports below 1024.");
++         warn_msg("You need to be root to bind to ports below 1024.");
+       if (errno == EADDRINUSE)
+          warn_msg("Only one process may bind to the source port at any one time.");
        err_sys("bind");
-    }
-@@ -1616,3 +1616,14 @@
+@@ -2598,3 +2599,14 @@
     fprintf(stderr, "See the ike-scan homepage at http://www.nta-monitor.com/ike-scan/\n");
-    exit(1);
+    exit(status);
  }
 +/*
 + *      nosuid -- prevent usage if suid in use
@@ -40,13 +33,14 @@
 +exit(1);
 +}
 +}
---- ike-scan-1.2/ike-scan.h.orig	Sat Jul 19 00:04:32 2003
-+++ ike-scan-1.2/ike-scan.h	Sat Jul 19 00:01:11 2003
-@@ -159,6 +159,7 @@
+diff -urN ike-scan-1.6.orig/ike-scan.h ike-scan-1.6.new/ike-scan.h
+--- ike-scan-1.6.orig/ike-scan.h	2004-01-10 19:22:19.000000000 +0100
++++ ike-scan-1.6.new/ike-scan.h	2004-05-19 12:22:38.970562944 +0200
+@@ -188,6 +188,7 @@
+ void info_syslog(const char *, ...);
  void err_print(int, int, const char *, va_list);
- char *cpystr(char *string);
- void usage(void);
+ void usage(int);
 +void nosuid();
- void add_host(char *);
- void send_packet(int, struct host_entry *);
- int recvfrom_wto(int, char *, int, struct sockaddr *, int);
+ void add_host_pattern(const char *, unsigned, unsigned *);
+ void add_host(const char *, unsigned, unsigned *);
+ void send_packet(int, unsigned char *, size_t, struct host_entry *, unsigned,
