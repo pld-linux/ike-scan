@@ -5,9 +5,9 @@ Version:	1.1
 Release:	1
 License:	GPL
 Group:		Applications/System
+Vendor:		NTA Monitor Limited <ike-scan@nta-monitor.com>
 Source0:	http://www.stearns.org/ike-scan/%{name}-%{version}.tar.gz
 # Source0-md5:	b87fe14043c43c2897cf309c364574b7
-Vendor:		NTA Monitor Limited <ike-scan@nta-monitor.com>
 URL:		http://www.nta-monitor.com/ike-scan/
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -36,13 +36,10 @@ u¿yciu techniki "retransmission backoff pattern".
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}}
 
-%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 #make DESTDIR=$RPM_BUILD_ROOT datadir=/usr/share/ike-scan bindir=/usr/sbin install
-
-#install -d $RPM_BUILD_ROOT/etc
-#install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
-#install -d $RPM_BUILD_ROOT/usr/man/man8
 #make BINDIR=$RPM_BUILD_ROOT/sbin CONFIG_FILE=$RPM_BUILD_ROOT/etc/goober.conf install
 #cp -p goober.8 $RPM_BUILD_ROOT/usr/man/man8
 #cp -p $RPM_SOURCE_DIR/goober.init $RPM_BUILD_ROOT/etc/rc.d/init.d/goober
