@@ -1,19 +1,18 @@
 Summary:	Discover and fingerprint IKE hosts (VPN Servers)
 Summary(pl):	Wykrywanie i uzyskiwanie odcisków hostów IKE (serwerów VPN)
 Name:		ike-scan
-Version:	1.2
-Release:	0.2
+Version:	1.6
+Release:	0.1
 License:	GPL
 Group:		Applications/System
 Vendor:		NTA Monitor Limited <ike-scan@nta-monitor.com>
 Source0:	http://www.stearns.org/ike-scan/%{name}-%{version}.tar.gz
-# Source0-md5:	25777051bb09306cb0b86e0cf1c48caa
+# Source0-md5:	5cdc5633a2a7484805d76b3952b8cef6
 Patch0:		%{name}-nosuid.patch
 URL:		http://www.nta-monitor.com/ike-scan/
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_datadir	%{_prefix}/share/ike-skan
 %define		_bindir		%{_sbindir}
 
 %description
@@ -36,15 +35,9 @@ u¿yciu techniki "retransmission backoff pattern".
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_sbindir},%{_datadir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-#make DESTDIR=$RPM_BUILD_ROOT datadir=/usr/share/ike-scan bindir=/usr/sbin install
-#make BINDIR=$RPM_BUILD_ROOT/sbin CONFIG_FILE=$RPM_BUILD_ROOT/etc/goober.conf install
-#cp -p goober.8 $RPM_BUILD_ROOT/usr/man/man8
-#cp -p $RPM_SOURCE_DIR/goober.init $RPM_BUILD_ROOT/etc/rc.d/init.d/goober
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -52,6 +45,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO udp-backoff-fingerprinting-paper.txt
+%{_mandir}/man?/*
 %attr(755,root,root) %{_sbindir}/ike-scan
-%dir %{_datadir}
-%{_datadir}/ike-backoff-patterns
+%attr(644,root,root) %{_datadir}/ike-scan/ike-backoff-patterns
+%attr(644,root,root) %{_datadir}/ike-scan/ike-vendor-ids
