@@ -6,6 +6,7 @@ Release:	1
 License:	GPL
 Group:		Applications/System
 Source0:	http://www.stearns.org/ike-scan/%{name}-%{version}.tar.gz
+# Source0-md5:	b87fe14043c43c2897cf309c364574b7
 Vendor:		NTA Monitor Limited <ike-scan@nta-monitor.com>
 URL:		http://www.nta-monitor.com/ike-scan/
 BuildRequires:	autoconf
