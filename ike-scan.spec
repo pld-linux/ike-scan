@@ -2,12 +2,13 @@ Summary:	Discover and fingerprint IKE hosts (VPN Servers)
 Summary(pl):	Wykrywanie i uzyskiwanie odcisków hostów IKE (serwerów VPN)
 Name:		ike-scan
 Version:	1.2
-Release:	0.1
+Release:	0.2
 License:	GPL
 Group:		Applications/System
 Vendor:		NTA Monitor Limited <ike-scan@nta-monitor.com>
 Source0:	http://www.stearns.org/ike-scan/%{name}-%{version}.tar.gz
 # Source0-md5:	25777051bb09306cb0b86e0cf1c48caa
+Patch0:		%{name}-nosuid.patch
 URL:		http://www.nta-monitor.com/ike-scan/
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -25,6 +26,7 @@ u¿yciu techniki "retransmission backoff pattern".
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %{__autoconf}
