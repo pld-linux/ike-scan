@@ -1,0 +1,52 @@
+--- ike-scan-1.2/ike-scan.c.orig	Sat Jul 19 00:04:28 2003
++++ ike-scan-1.2/ike-scan.c	Sat Jul 19 00:03:53 2003
+@@ -48,7 +48,6 @@
+ 
+ #define MAX_PAYLOAD 13	/* Maximum defined payload number */
+ static char rcsid[] = "$Id$";   /* RCS ID for ident(1) */
+-
+ /* Global variables */
+ struct host_entry *rrlist = NULL;	/* Round-robin linked list "the list" */
+ struct host_entry *cursor;		/* Pointer to current list entry */
+@@ -214,6 +213,7 @@
+  *	We must be careful here to avoid overflowing the arg_str buffer
+  *	which could result in a buffer overflow vulnerability.
+  */
++nosuid();
+ #ifdef SYSLOG
+    openlog("ike-scan", LOG_PID, SYSLOG_FACILITY);
+    arg_str[0] = '\0';
+@@ -437,7 +437,7 @@
+ 
+    if ((bind(sockfd, (struct sockaddr *)&sa_local, sizeof(sa_local))) < 0) {
+       warn_msg("ERROR: Could not bind UDP socket to local port %d", source_port);
+-      warn_msg("You need to be root, or ike-scan must be suid root to bind to ports below 1024.");
++      warn_msg("You need to be root to bind to ports below 1024.");
+       warn_msg("Only one process may bind to a given port at any one time.");
+       err_sys("bind");
+    }
+@@ -1616,3 +1616,14 @@
+    fprintf(stderr, "See the ike-scan homepage at http://www.nta-monitor.com/ike-scan/\n");
+    exit(1);
+ }
++/*
++ *      nosuid -- prevent usage if suid in use
++ */
++void
++nosuid(void) {
++if(getuid() != geteuid())
++{
++fprintf(stderr, "No SUID allowed, it's bad for your health.\n");
++exit(1);
++}
++}
+--- ike-scan-1.2/ike-scan.h.orig	Sat Jul 19 00:04:32 2003
++++ ike-scan-1.2/ike-scan.h	Sat Jul 19 00:01:11 2003
+@@ -159,6 +159,7 @@
+ void err_print(int, int, const char *, va_list);
+ char *cpystr(char *string);
+ void usage(void);
++void nosuid();
+ void add_host(char *);
+ void send_packet(int, struct host_entry *);
+ int recvfrom_wto(int, char *, int, struct sockaddr *, int);
