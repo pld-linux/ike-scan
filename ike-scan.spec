@@ -11,7 +11,7 @@ URL:		http://www.nta-monitor.com/ike-scan/
 BuildRequires:	autoconf
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_datadir	%{_prefix}/share/ide-skan
+%define		_datadir	%{_prefix}/share/ike-skan
 %define		_bindir		%{_sbindir}
 
 %description
