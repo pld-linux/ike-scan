@@ -45,7 +45,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS ChangeLog NEWS README TODO udp-backoff-fingerprinting-paper.txt
-%{_mandir}/man?/*
 %attr(755,root,root) %{_sbindir}/ike-scan
-%attr(644,root,root) %{_datadir}/ike-scan/ike-backoff-patterns
-%attr(644,root,root) %{_datadir}/ike-scan/ike-vendor-ids
+%dir %{_datadir}/ike-scan
+%{_datadir}/ike-scan/ike-backoff-patterns
+%{_datadir}/ike-scan/ike-vendor-ids
+%{_mandir}/man?/*
