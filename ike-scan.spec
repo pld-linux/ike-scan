@@ -1,5 +1,5 @@
 Summary:	Discover and fingerprint IKE hosts (VPN Servers)
-Summary(pl):	Wykrywanie i uzyskiwanie odcisków hostów IKE (serwerów VPN)
+Summary(pl.UTF-8):   Wykrywanie i uzyskiwanie odciskÃ³w hostÃ³w IKE (serwerÃ³w VPN)
 Name:		ike-scan
 Version:	1.6
 Release:	0.1
@@ -19,9 +19,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 ike-scan discovers IKE hosts and can also fingerprint them using the
 retransmission backoff pattern.
 
-%description -l pl
-ike-skan wykrywa hosty IKE, a ponadto mo¿e uzyskaæ ich odciski przy
-u¿yciu techniki "retransmission backoff pattern".
+%description -l pl.UTF-8
+ike-skan wykrywa hosty IKE, a ponadto moÅ¼e uzyskaÄ‡ ich odciski przy
+uÅ¼yciu techniki "retransmission backoff pattern".
 
 %prep
 %setup -q
