@@ -1,5 +1,5 @@
 Summary:	Discover and fingerprint IKE hosts (VPN Servers)
-Summary(pl.UTF-8):   Wykrywanie i uzyskiwanie odcisków hostów IKE (serwerów VPN)
+Summary(pl.UTF-8):	Wykrywanie i uzyskiwanie odcisków hostów IKE (serwerów VPN)
 Name:		ike-scan
 Version:	1.6
 Release:	0.1
